@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title>Project 2</title>
+    <style>
+        :root{
+            --header-colour: #000;
+            --pass-colour: #1ab394;
+            --fail-colour: #ed5565;
+            --pending-colour: #f8ac59;
+            --running-colour: #1c84c6;
+            --grey-colour: #eee;
+        }
+
+        body, html{
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        .container{
+            width:980px;
+        }
+        
+        header{
+            border-bottom: 1px solid #cccccc;
+            height:20px;
+        }
+        .headings li {
+            display: inline-flex;
+            width:24%;
+            justify-content: left;
+            font-weight: 700;
+            color: var(--header-colour);
+        }
+
+        .row{
+            padding:10px 0px;
+            border-bottom: 1px solid #cccccc;
+            position: relative;
+            display: inline-flex;
+            width: 100%;
+        }
+        .steps-container {
+            width:70%;
+            margin-bottom: 0px;
+        }
+        .steps-container:before {
+            background: var(--grey-colour);
+            height: 14px;
+            width: 490px;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -ms-border-radius: 10px;
+            content: "";
+            display: block;
+            position: absolute;
+            top: 23px;
+            left: 47px;
+        }  
+        
+        .steps-container li{
+            display: inline-flex;
+            width:32.8%;
+            justify-content: left;
+        }
+
+        .steps-container li span{  
+            background-color: var(--grey-colour);
+            position: relative;
+            display: block;
+            width: 37px;
+            height: 37px;
+            margin-top:-13px;
+            margin-left: 5px;
+            border-radius: 37px;
+            -moz-border-radius: 37px;
+            -webkit-border-radius: 37px;
+            -ms-border-radius: 37px;    
+        }
+
+        span.desc{
+            display: flex;
+            align-items: center;
+        }
+
+        span.desc i{
+            margin-right: 5px;
+        }
+
+        .passed{
+            color: var(--pass-colour);
+        }
+
+        .running{
+            color: var(--running-colour);
+        }
+
+        .failed{
+            color: var(--fail-colour);
+        }
+
+        .pending{
+            color: var(--pending-colour);
+        }
+        
+        .steps-container span.pending-item:after {
+            display: block;
+            position: relative;
+            content: '\f141';
+            font-family: FontAwesome;
+            position: absolute;
+            z-index: 1;
+            background: var(--pending-colour);
+            color: #fff;
+            width: 27px;
+            height: 27px;
+            line-height: 29px;
+            margin: 5px;
+            border-radius: 27px;
+            text-align: center;
+        }
+        .steps-container span.running-item:after {
+            display: block;
+            position: relative;
+            content: '\f021';
+            font-family: FontAwesome;
+            position: absolute;
+            z-index: 1;
+            background: var(--running-colour);
+            color: #fff;
+            width: 27px;
+            height: 27px;
+            line-height: 29px;
+            margin: 5px;
+            border-radius: 27px;
+            text-align: center;
+        }
+        .steps-container span.passed-item:after {
+            display: block;
+            position: relative;
+            content: '\f00c';
+            font-family: FontAwesome;
+            position: absolute;
+            z-index: 1;
+            background: var(--pass-colour);
+            color: #fff;
+            width: 27px;
+            height: 27px;
+            line-height: 29px;
+            margin: 5px;
+            border-radius: 27px;
+            text-align: center;
+        }
+
+        .steps-container span.failed-item:after {
+            display: block;
+            content: '\f12a';
+            font-family: FontAwesome;
+            position: absolute;
+            z-index: 1;
+            background: var(--fail-colour);
+            color: #fff;
+            width: 27px;
+            height: 27px;
+            line-height: 29px;
+            margin: 5px;
+            border-radius: 27px;
+            text-align: center;
+        }
+        .steps-container span.failed2-item:after {
+            display: block;
+            content: '\f00c';
+            font-family: FontAwesome;
+            position: absolute;
+            z-index: 1;
+            background: var(--fail-colour);
+            color: #fff;
+            width: 27px;
+            height: 27px;
+            line-height: 29px;
+            margin: 5px;
+            border-radius: 27px;
+            text-align: center;
+        }
+
+        span.passed-item:before {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 210px;
+            background: var(--pass-colour);
+            top: 13px;
+            left: -201px;
+        }
+        span.running-item:before {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 200px;
+            background: var(--running-colour);
+            top: 13px;
+            left: 7px;
+        }
+
+        span.failed-item:before {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 210px;
+            background: var(--fail-colour);
+            top: 13px;
+            left: -201px;
+        }
+
+        .steps-container li:first-child>span.passed-item:before, .steps-container li:first-child>span.failed-item:before {
+            visibility: hidden;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <ul class="headings">
+                <li>Task1</li>
+                <li>Task2</li>
+                <li>Task3</li>
+                <li>Status</li>
+            </ul>
+        </header>
+
+        <main>
+            <div class="row pending">
+                <ul class="steps-container">
+                    <li><span class="pending-item"></span></li>
+                    <li><span></span></li>
+                    <li><span></span></li>
+                </ul>
+                <span class="desc"><i class="fas fa-ellipsis-h"></i>Pending</span>
+            </div>
+            <div class="row running">
+                    <ul class="steps-container">
+                        <li><span class="running-item"></span></li>
+                        <li><span></span></li>
+                        <li><span></span></li>
+                    </ul>
+                    <span class="desc"><i class="fas fa-sync-alt"></i>Running</span>
+            </div>
+            <div class="row passed">
+                <ul class="steps-container">
+                    <li><span class="passed-item"></span></li>
+                    <li><span class="passed-item"></span></li>
+                    <li><span class="passed-item"></span></li>
+                </ul>
+                <span class="desc"><i class="far fa-check-circle"></i>Passed</span>
+            </div>
+            <div class="row failed">
+                <ul class="steps-container">
+                    <li><span class="failed-item"></span></li>
+                    <li><span></span></li>
+                    <li><span></span></li>
+                </ul>
+                <span class="desc"><i class="far fa-times-circle"></i>Failed</span>
+            </div>
+            <div class="row passed">
+                <ul class="steps-container">
+                    <li><span class="passed-item"></span></li>
+                    <li><span class="passed-item"></span></li>
+                    <li><span class="passed-item"></span></li>
+                </ul>
+                <span class="desc"><i class="far fa-check-circle"></i>Passed</span>
+            </div>
+            <div class="row failed">
+                <ul class="steps-container">
+                    <li><span class="failed2-item"></span></li>
+                    <li><span class="failed-item"></span></li>
+                    <li><span></span></li>
+                </ul>
+                <span class="desc"><i class="far fa-times-circle"></i>Failed</span>
+            </div>
+            
+        </main>
+    </div>
+</body>
+</html>
